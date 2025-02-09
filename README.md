@@ -6,17 +6,17 @@ This project controls a RCCar using an STM32 microcontroller and FreeRTOS. It re
 ### Key Components:
 - **UART Communication**:
 
-   -The microcontroller uses two UARTs (USART1 and USART2). USART1 is used for receiving commands from an external source (like a terminal or another device). The received data is stored in RX_BUFFER.
-   -The HAL_UART_Receive_IT function is used to enable interrupt-based reception. When data is received on UART1, it triggers the HAL_UART_RxCpltCallback() function, where the received command is processed.
+   1. The microcontroller uses two UARTs (`USART1` and `USART2`). `USART1` is used for receiving commands from an external source (like a terminal or another device). The received data is stored in `RX_BUFFER`.
+   2. The `HAL_UART_Receive_IT` function is used to enable interrupt-based reception. When data is received on UART1, it triggers the `HAL_UART_RxCpltCallback()` function, where the received command is processed.
 
 - **RTOS Tasks**:
-   The system uses FreeRTOS to manage different tasks (defaultTask, forward, right, left, and back). Each task controls specific parts of the robot's motion.
+   The system uses FreeRTOS to manage different tasks (`defaultTask`, `forward`, `right`, `left`, and `back`). Each task controls specific parts of the robot's motion.
    The priority of each task is set based on the received UART commands. The system dynamically adjusts the task priority to perform actions like moving forward, left, right, or backward.
 - **GPIO Control**:
-   -GPIO pins control the motion of the robot. When specific commands are received, the corresponding GPIO pins are set to HIGH or LOW to control the motors or actuators.
-   -The control pins (like GPIO_PIN_0, GPIO_PIN_1, etc.) are toggled in each task based on the received command.
+   1. GPIO pins control the motion of the robot. When specific commands are received, the corresponding GPIO pins are set to HIGH or LOW to control the motors or actuators.
+   2. The control pins (like `GPIO_PIN_0`, `GPIO_PIN_1`, etc.) are toggled in each task based on the received command.
 - **Interrupt Handling**:
-   The HAL_UART_RxCpltCallback() function is used to process the received data asynchronously. This function is called when a new character is received over UART1.
+   The `HAL_UART_RxCpltCallback()` function is used to process the received data asynchronously. This function is called when a new character is received over UART1.
 
 ### Features:
 - **UART Communication**: Receives commands from an external device.
